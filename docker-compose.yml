@@ -1,5 +1,7 @@
 web:
-    image: nginx:latest
+    #image: nginx:latest
+    build: .
+    container_name: nginx
     ports:
         - "8080:8080"
     volumes:
@@ -10,5 +12,7 @@ web:
         - php
 php:
     image: php:7-fpm
+    container_name: php
     volumes:
         - ./:/code
+
