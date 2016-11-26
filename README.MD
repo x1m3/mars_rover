@@ -3,7 +3,7 @@ Reglas de la kata "Mars Rover"
 
 Se requiere implementar la kata denominada "Mars Rover" en PHP. Las reglas son sencillas:
 
-- Se crea un mapa inicial que contiene coordenadas coordenadas cuyas dimensiones podrán ser seleccionadas por el usuario
+- Se crea un mapa inicial que contiene coordenadas cuyas dimensiones podrán ser seleccionadas por el usuario
 - Se crean obstaculos que serán posicionados en coordenadas del mapa que podrán ser seleccionadas por el usuario
 - Se introducirán unas coordenadas de inicio y una dirección (Norte, Sur, Este, Oeste)
 - La Mars Rover recibirá un set de comandos, los posibles comandos serán:
