@@ -11,6 +11,10 @@ namespace Marsrover;
  * Class World
  * @package Marsrover
  */
+/**
+ * Class World
+ * @package Marsrover
+ */
 class World
 {
     /**
@@ -28,32 +32,29 @@ class World
 
     /**
      * World constructor.
-     * @param int $x
-     * @param int $y
+     * @param Coordinate $maxDimensions
      */
-    public function __construct(int $x, int $y)
+    public function __construct(Coordinate $maxDimensions)
     {
         $this->minCoord = new Coordinate(1, 1);
-        $this->maxCoord = new Coordinate($x, $y);
+        $this->maxCoord = $maxDimensions;
         $this->obstacles = [];
     }
 
     /**
-     * @param int $x
-     * @param int $y
+     * @param Coordinate $obstacle
      * @throws CoordinateOutOfRangeException
      * @throws WorldCannotPlaceObstacleException
      */
-    public function addObstacle(int $x, int $y)
+    public function addObstacle(Coordinate $obstacle)
     {
-        $coord = new Coordinate($x, $y);
-        if ($this->outOfLimits($coord)){
+        if ($this->outOfLimits($obstacle)){
             throw new CoordinateOutOfRangeException();
         }
-        if ($this->collision($coord)) {
+        if ($this->collision($obstacle)) {
             throw new WorldCannotPlaceObstacleException();
         }
-        $this->obstacles []= $coord;
+        $this->obstacles []= $obstacle;
     }
 
     /**

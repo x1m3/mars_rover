@@ -12,7 +12,7 @@ class WorldTest extends TestCase
 {
     public function testDimensions()
     {
-        $world = new World(10,20);
+        $world = new World(new Coordinate(10,20));
 
         $minBoundary = $world->minCoord();
         $this->assertInstanceOf(Coordinate::class, $minBoundary);
@@ -59,7 +59,7 @@ class WorldTest extends TestCase
      */
     public function testBoundaries(bool $outOfBoundary, Coordinate $coord)
     {
-        $world = new World(10,20);
+        $world = new World(new Coordinate(10,20));
         $this->assertEquals($outOfBoundary, $world->outOfLimits($coord));
     }
     /**
@@ -67,18 +67,18 @@ class WorldTest extends TestCase
      */
     public function testAddingObstacleOutOfBoundaries()
     {
-        $world = new World(10,20);
-        $this->expectException($world->addObstacle(100,100));
+        $world = new World(new Coordinate(10,20));
+        $this->expectException($world->addObstacle(new Coordinate(100,100)));
     }
 
     public function testObstacleGeneratesCollision()
     {
-        $world = new World(10,20);
+        $world = new World(new Coordinate(10,20));
 
-        $world->addObstacle(5,5);
-        $world->addObstacle(5,6);
-        $world->addObstacle(5,7);
-        $world->addObstacle(5,8);
+        $world->addObstacle(new Coordinate(5,5));
+        $world->addObstacle(new Coordinate(5,6));
+        $world->addObstacle(new Coordinate(5,7));
+        $world->addObstacle(new Coordinate(5,8));
 
         $this->assertEquals(false,$world->collision(new Coordinate(4,6)));
         $this->assertEquals(true,$world->collision(new Coordinate(5,6)));
@@ -90,8 +90,8 @@ class WorldTest extends TestCase
      */
     public function testCannotPlaceTwoObstaclesSamePlace()
     {
-        $world = new World(10,20);
-        $world->addObstacle(5,5);
-        $this->expectException($world->addObstacle(5,5));
+        $world = new World(new Coordinate(10,20));
+        $world->addObstacle(new Coordinate(5,5));
+        $this->expectException($world->addObstacle(new Coordinate(5,5)));
     }
 }
