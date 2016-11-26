@@ -3,6 +3,10 @@
 namespace Marsrover;
 
 
+/**
+ * Class Rover
+ * @package Marsrover
+ */
 class Rover
 {
     /**
@@ -38,4 +42,22 @@ class Rover
         $this->direction = $direction;
         $this->world = $world;
     }
+
+    /**
+     * @return Coordinate
+     */
+    public function Position()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return IDirection
+     */
+    public function Direction()
+    {
+        return $this->direction;
+    }
+
+
 }

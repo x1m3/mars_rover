@@ -3,6 +3,7 @@
 namespace Marsrover\test;
 
 use Marsrover\DirectionNorth;
+use Marsrover\DirectionSouth;
 use PHPUnit\Framework\TestCase;
 use Marsrover\Coordinate;
 use Marsrover\World;
@@ -42,6 +43,27 @@ class RoverTest extends TestCase
                 $world
             )
         );
+    }
+
+    public function testLandingPositionIsOk()
+    {
+        $rover = new Rover(
+            new Coordinate(40,50),
+            new DirectionNorth(),
+            new World( new Coordinate(100,100))
+        );
+        $this->assertEquals(40, $rover->Position()->coordX());
+        $this->assertEquals(50, $rover->Position()->coordY());
+    }
+
+    public function testDirectionPositionIsOk()
+    {
+        $rover = new Rover(
+            new Coordinate(40,50),
+            new DirectionNorth(),
+            new World( new Coordinate(100,100))
+        );
+        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
     }
 
 
