@@ -3,7 +3,7 @@ namespace Marsrover\test;
 
 use PHPUnit\Framework\TestCase;
 
-class TestingPhpunitWorks extends TestCase
+class TestingPhpunitWorksTests extends TestCase
 {
     public function testItWorks()
     {
