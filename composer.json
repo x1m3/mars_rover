@@ -3,7 +3,7 @@
     "description": "Just another version of the Mars Rover Kata, php version",
     "autoload": {
         "psr-4": {
-            "Marsrover\\": "./src/"
+            "Marsrover\\": "src/"
         }
     },
     "require": {
