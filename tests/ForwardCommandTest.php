@@ -2,7 +2,8 @@
 
 namespace Marsrover\test;
 
-use Marsrover\Commands\ForwardCommand;
+use Marsrover\Commands\MoveCommand;
+use Marsrover\MovementsEnum;
 use PHPUnit\Framework\TestCase;
 use Marsrover\Rover;
 use Marsrover\Coordinate;
@@ -35,7 +36,7 @@ class ForwardCommandTest extends TestCase
     {
         $rover = $this->roverNorth;
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
         $this->assertEquals(40,$rover->Position()->coordX());
         $this->assertEquals(49,$rover->Position()->coordY());
@@ -45,7 +46,7 @@ class ForwardCommandTest extends TestCase
     {
         $rover = $this->roverSouth;
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
         $this->assertEquals(40,$rover->Position()->coordX());
         $this->assertEquals(51,$rover->Position()->coordY());
@@ -55,7 +56,7 @@ class ForwardCommandTest extends TestCase
     {
         $rover = $this->roverWest;
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
         $this->assertEquals(39,$rover->Position()->coordX());
         $this->assertEquals(50,$rover->Position()->coordY());
@@ -65,7 +66,7 @@ class ForwardCommandTest extends TestCase
     {
         $rover = $this->roverEast;
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
         $this->assertEquals(41,$rover->Position()->coordX());
         $this->assertEquals(50,$rover->Position()->coordY());
@@ -77,7 +78,7 @@ class ForwardCommandTest extends TestCase
         $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
         $rover = new Rover($initial, new DirectionNorth(), $world);
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
 
         $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
@@ -90,7 +91,7 @@ class ForwardCommandTest extends TestCase
         $initial = new Coordinate($world->minCoord()->coordX(), $world->maxCoord()->coordY());
         $rover = new Rover($initial, new DirectionSouth(), $world);
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
 
         $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
@@ -103,7 +104,7 @@ class ForwardCommandTest extends TestCase
         $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
         $rover = new Rover($initial, new DirectionWest(), $world);
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
 
         $this->assertEquals($world->maxCoord()->coordX(), $rover->Position()->coordX());
@@ -116,7 +117,7 @@ class ForwardCommandTest extends TestCase
         $initial = new Coordinate($world->maxCoord()->coordX(), $world->minCoord()->coordY());
         $rover = new Rover($initial, new DirectionEast(), $world);
 
-        $moveForward = new ForwardCommand($rover);
+        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
         $moveForward->execute();
 
         $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());

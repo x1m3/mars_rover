@@ -3,16 +3,19 @@
 namespace Marsrover\Commands;
 
 use Marsrover\Directions\DirectionEnums;
+use Marsrover\MovementsEnum;
 use Marsrover\Rover;
 use Marsrover\Coordinate;
 
-class ForwardCommand
+class MoveCommand
 {
     protected $rover;
+    protected $sense;
 
-    public function __construct(Rover $rover)
+    public function __construct(Rover $rover, int $sense)
     {
         $this->rover = $rover;
+        $this->sense = $sense;
     }
 
     public function execute()
@@ -20,27 +23,33 @@ class ForwardCommand
         $position = $this->rover->Position();
         $world = $this->rover->world();
 
+        if ($this->sense==MovementsEnum::FORWARD) {
+            $step = 1;
+        } else {
+            $step = -1;
+        }
+
         switch ($this->rover->Direction()->name()) {
             case DirectionEnums::NORTH:
-                $newPosition = new Coordinate($position->coordX(), $position->coordY()-1);
+                $newPosition = new Coordinate($position->coordX(), $position->coordY()-$step);
                 if ($world->outOfLimits($newPosition)) {
                     $newPosition = new Coordinate( $newPosition->coordX(), $world->maxCoord()->coordY());
                 }
                 break;
             case DirectionEnums::SOUTH:
-                $newPosition = new Coordinate($position->coordX(), $position->coordY()+1);
+                $newPosition = new Coordinate($position->coordX(), $position->coordY()+$step);
                 if ($world->outOfLimits($newPosition)) {
                     $newPosition = new Coordinate( $newPosition->coordX(), $world->minCoord()->coordY());
                 }
                 break;
             case DirectionEnums::EAST:
-                $newPosition = new Coordinate($position->coordX()+1, $position->coordY());
+                $newPosition = new Coordinate($position->coordX()+$step, $position->coordY());
                 if ($world->outOfLimits($newPosition)) {
                     $newPosition = new Coordinate( $world->minCoord()->coordX(), $newPosition->coordY());
                 }
                 break;
             case DirectionEnums::WEST:
-                $newPosition = new Coordinate($position->coordX()-1, $position->coordY());
+                $newPosition = new Coordinate($position->coordX()-$step, $position->coordY());
                 if ($world->outOfLimits($newPosition)) {
                     $newPosition = new Coordinate( $world->maxCoord()->coordX(), $newPosition->coordY());
                 }
