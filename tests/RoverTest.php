@@ -2,10 +2,10 @@
 
 namespace Marsrover\test;
 
-use Marsrover\DirectionNorth;
-use Marsrover\DirectionSouth;
-use Marsrover\DirectionEast;
-use Marsrover\DirectionWest;
+use Marsrover\Directions\DirectionNorth;
+use Marsrover\Directions\DirectionSouth;
+use Marsrover\Directions\DirectionEast;
+use Marsrover\Directions\DirectionWest;
 use PHPUnit\Framework\TestCase;
 use Marsrover\Coordinate;
 use Marsrover\World;
@@ -15,7 +15,7 @@ use Marsrover\Rover;
 class RoverTest extends TestCase
 {
     /**
-     * @expectedException Marsrover\CoordinateOutOfRangeException
+     * @expectedException Marsrover\Exceptions\CoordinateOutOfRangeException
      */
     public function testRoverLandingOutOfLimits()
     {
@@ -29,7 +29,7 @@ class RoverTest extends TestCase
     }
 
     /**
-     * @expectedException Marsrover\WorldCannotPlaceObstacleException
+     * @expectedException Marsrover\Exceptions\WorldCannotPlaceObstacleException
      */
     public function testRoverLandingInAnObject()
     {
@@ -111,7 +111,7 @@ class RoverTest extends TestCase
     }
 
     /**
-     * @expectedException Marsrover\CannotMoveException
+     * @expectedException Marsrover\Exceptions\CannotMoveException
      */
     public function testRoversMovesToObstacle()
     {

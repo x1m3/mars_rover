@@ -1,5 +1,5 @@
 <?php
-namespace Marsrover;
+namespace Marsrover\Directions;
 
 interface Idirection {
     public function turnLeft();

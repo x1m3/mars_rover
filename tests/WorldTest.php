@@ -63,7 +63,7 @@ class WorldTest extends TestCase
         $this->assertEquals($outOfBoundary, $world->outOfLimits($coord));
     }
     /**
-     * @expectedException Marsrover\CoordinateOutOfRangeException
+     * @expectedException Marsrover\Exceptions\CoordinateOutOfRangeException
      */
     public function testAddingObstacleOutOfBoundaries()
     {
@@ -86,7 +86,7 @@ class WorldTest extends TestCase
         $this->assertEquals(false,$world->collision(new Coordinate(7,6)));
     }
     /**
-     * @expectedException Marsrover\WorldCannotPlaceObstacleException
+     * @expectedException Marsrover\Exceptions\WorldCannotPlaceObstacleException
      */
     public function testCannotPlaceTwoObstaclesSamePlace()
     {

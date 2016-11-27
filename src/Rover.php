@@ -2,6 +2,11 @@
 
 namespace Marsrover;
 
+use Marsrover\Directions\Idirection;
+use Marsrover\Exceptions\CoordinateOutOfRangeException;
+use Marsrover\Exceptions\WorldCannotPlaceObstacleException;
+use Marsrover\Exceptions\CannotMoveException;
+
 
 /**
  * Class Rover

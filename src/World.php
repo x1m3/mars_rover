@@ -2,6 +2,10 @@
 
 namespace Marsrover;
 
+use Marsrover\Exceptions\CoordinateOutOfRangeException;
+use Marsrover\Exceptions\WorldCannotPlaceObstacleException;
+
+
 
 /**
  * Class World

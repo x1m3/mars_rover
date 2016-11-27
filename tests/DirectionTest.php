@@ -2,12 +2,12 @@
 
 namespace Marsrover\test;
 
-use Marsrover\DirectionEnums;
+use Marsrover\Directions\DirectionEnums;
 use PHPUnit\Framework\TestCase;
-use Marsrover\DirectionNorth;
-use Marsrover\DirectionSouth;
-use Marsrover\DirectionEast;
-use Marsrover\DirectionWest;
+use Marsrover\Directions\DirectionNorth;
+use Marsrover\Directions\DirectionSouth;
+use Marsrover\Directions\DirectionEast;
+use Marsrover\Directions\DirectionWest;
 
 
 class DirectionTest extends TestCase

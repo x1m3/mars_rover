@@ -1,6 +1,6 @@
 <?php
 
-namespace Marsrover;
+namespace Marsrover\Exceptions;
 
 
 class CannotMoveException extends \Exception
