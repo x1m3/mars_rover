@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Marsrover\Rover;
 use Marsrover\Coordinate;
 use Marsrover\World;
+use Marsrover\Directions\IDirection;
 use Marsrover\Directions\DirectionNorth;
 use Marsrover\Directions\DirectionSouth;
 use Marsrover\Directions\DirectionEast;
@@ -16,111 +17,143 @@ use Marsrover\Directions\DirectionWest;
 
 class ForwardCommandTest extends TestCase
 {
-    protected $roverNorth;
-    protected $roverSouth;
-    protected $roverEast;
-    protected $roverWest;
-
-    public function setUp()
+    public function getRoversToTestMovement()
     {
         $world= new World( new Coordinate(100,100));
-        $initial = new Coordinate(40,50);
 
-        $this->roverNorth = new Rover($initial, new DirectionNorth(), $world);
-        $this->roverSouth = new Rover($initial, new DirectionSouth(), $world);
-        $this->roverEast = new Rover($initial, new DirectionEast(), $world);
-        $this->roverWest = new Rover($initial, new DirectionWest(), $world);
+        return [
+            [ //Move forward to North, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionNorth(),
+                MovementsEnum::FORWARD,
+                new Coordinate(10,19)
+            ],
+            [ //Move forward to South, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionSouth(),
+                MovementsEnum::FORWARD,
+                new Coordinate(10,21)
+            ],
+            [ //Move forward to West, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionWest(),
+                MovementsEnum::FORWARD,
+                new Coordinate(9,20)
+            ],
+            [ //Move forward to East, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionEast(),
+                MovementsEnum::FORWARD,
+                new Coordinate(11,20)
+            ],
+            [ //Move forward to North out of boundaries
+                $world,
+                new Coordinate(1,1),
+                new DirectionNorth(),
+                MovementsEnum::FORWARD,
+                new Coordinate(1,100)
+            ],
+            [ //Move forward to south out of boundaries
+                $world,
+                new Coordinate(1,100),
+                new DirectionSouth(),
+                MovementsEnum::FORWARD,
+                new Coordinate(1,1)
+            ],
+
+            [ //Move forward to west out of boundaries
+                $world,
+                new Coordinate(1,1),
+                new DirectionWest(),
+                MovementsEnum::FORWARD,
+                new Coordinate(100,1)
+            ],
+            [ //Move forward to east out of boundaries
+                $world,
+                new Coordinate(100,1),
+                new DirectionEast(),
+                MovementsEnum::FORWARD,
+                new Coordinate(1,1)
+            ],
+            [ //Move backward to North, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionNorth(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(10,21)
+            ],
+            [ //Move backward to South, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionSouth(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(10,19)
+            ],
+            [ //Move backward to West, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionWest(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(11,20)
+            ],
+            [ //Move backward to East, not in boundary
+                $world,
+                new Coordinate(10,20),
+                new DirectionEast(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(9,20)
+            ],
+
+            [ //Move backward to North out of boundaries
+                $world,
+                new Coordinate(1,100),
+                new DirectionNorth(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(1,1)
+            ],
+            [ //Move backward to south out of boundaries
+                $world,
+                new Coordinate(1,1),
+                new DirectionSouth(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(1,100)
+            ],
+            [ //Move backward to west out of boundaries
+                $world,
+                new Coordinate(100,1),
+                new DirectionWest(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(1,1)
+            ],
+            [ //Move backward to east out of boundaries
+                $world,
+                new Coordinate(1,1),
+                new DirectionEast(),
+                MovementsEnum::BACKWARD,
+                new Coordinate(100,1)
+            ]
+        ];
     }
 
-    public function testForwardCommandMovesRoverToNorth()
+
+    /**
+     * @dataProvider getRoversToTestMovement
+     * @param Coordinate $expected
+     * @param Rover $rover
+     * @param int $sense
+     */
+    public function testMoveForwardAndBackward(World $world, Coordinate $start, IDirection $direction, int $sense, Coordinate $expected)
     {
-        $rover = $this->roverNorth;
+        $rover = new Rover($start, $direction, $world);
 
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-        $this->assertEquals(40,$rover->Position()->coordX());
-        $this->assertEquals(49,$rover->Position()->coordY());
-    }
+        $move= new MoveCommand($rover, $sense);
+        $move->execute();
 
-    public function testForwardCommandMovesRoverToSouth()
-    {
-        $rover = $this->roverSouth;
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-        $this->assertEquals(40,$rover->Position()->coordX());
-        $this->assertEquals(51,$rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesRoverToWest()
-    {
-        $rover = $this->roverWest;
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-        $this->assertEquals(39,$rover->Position()->coordX());
-        $this->assertEquals(50,$rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesRoverToEast()
-    {
-        $rover = $this->roverEast;
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-        $this->assertEquals(41,$rover->Position()->coordX());
-        $this->assertEquals(50,$rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesOutOfBoundariesNorth() {
-
-        $world= new World( new Coordinate(100,100));
-        $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
-        $rover = new Rover($initial, new DirectionNorth(), $world);
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-
-        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
-        $this->assertEquals($world->maxCoord()->coordY(), $rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesOutOfBoundariesSouth() {
-
-        $world= new World( new Coordinate(100,100));
-        $initial = new Coordinate($world->minCoord()->coordX(), $world->maxCoord()->coordY());
-        $rover = new Rover($initial, new DirectionSouth(), $world);
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-
-        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
-        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesOutOfBoundariesWest() {
-
-        $world= new World( new Coordinate(100,100));
-        $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
-        $rover = new Rover($initial, new DirectionWest(), $world);
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-
-        $this->assertEquals($world->maxCoord()->coordX(), $rover->Position()->coordX());
-        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
-    }
-
-    public function testForwardCommandMovesOutOfBoundariesEast() {
-
-        $world= new World( new Coordinate(100,100));
-        $initial = new Coordinate($world->maxCoord()->coordX(), $world->minCoord()->coordY());
-        $rover = new Rover($initial, new DirectionEast(), $world);
-
-        $moveForward = new MoveCommand($rover, MovementsEnum::FORWARD);
-        $moveForward->execute();
-
-        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
-        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
+        $this->assertEquals($expected->coordX(), $rover->Position()->coordX());
+        $this->assertEquals($expected->coordY(), $rover->Position()->coordY());
     }
 }
