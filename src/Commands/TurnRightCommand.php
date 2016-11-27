@@ -4,7 +4,7 @@ namespace Marsrover\Commands;
 
 use Marsrover\Rover;
 
-class TurnLeftCommand
+class TurnRightCommand
 {
     protected $rover;
 
@@ -15,6 +15,6 @@ class TurnLeftCommand
 
     public function execute()
     {
-        $this->rover->turnLeft();
+        $this->rover->turnRight();
     }
 }
