@@ -7,10 +7,24 @@ use Marsrover\Directions\DirectionNorth;
 use Marsrover\Directions\Idirection;
 
 
+/**
+ * Class Game
+ * @package Marsrover
+ */
 class Game
 {
+    /**
+     * @var Rover
+     */
     private $rover;
 
+    /**
+     * Game constructor.
+     * @param Coordinate|NULL $worldSize
+     * @param Coordinate|NULL $initialPosition
+     * @param Idirection|NULL $direction
+     * @param array $obstacles
+     */
     public function __construct(
         Coordinate $worldSize=NULL,
         Coordinate $initialPosition=NULL,
@@ -33,6 +47,9 @@ class Game
         $this->rover = new Rover($initialPosition, $direction, $world);
     }
 
+    /**
+     * @param string $commands
+     */
     public function run(string $commands)
     {
         $parser = new CommandParser($this->rover);
@@ -43,10 +60,17 @@ class Game
         }
     }
 
+    /**
+     * @return Rover
+     */
     public function rover() {
         return $this->rover;
     }
 
+    /**
+     * @param Coordinate $coordinate
+     * @return string
+     */
     private function coordToString(Coordinate $coordinate)
     {
         return "[" . $coordinate->coordX() . ", " . $coordinate->coordY() . "]";

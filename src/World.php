@@ -5,16 +5,6 @@ namespace Marsrover;
 use Marsrover\Exceptions\CoordinateOutOfRangeException;
 use Marsrover\Exceptions\WorldCannotPlaceObstacleException;
 
-
-
-/**
- * Class World
- * @package Marsrover
- */
-/**
- * Class World
- * @package Marsrover
- */
 /**
  * Class World
  * @package Marsrover

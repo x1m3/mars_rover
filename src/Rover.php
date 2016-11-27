@@ -48,21 +48,34 @@ class Rover
         $this->world = $world;
     }
 
+    /**
+     * @return World
+     */
     public function world()
     {
         return $this->world;
     }
 
+    /**
+     *
+     */
     public function turnLeft()
     {
         $this->direction = $this->direction->turnLeft();
     }
 
+    /**
+     *
+     */
     public function turnRight()
     {
         $this->direction = $this->direction->turnRight();
     }
 
+    /**
+     * @param Coordinate $coord
+     * @throws CannotMoveException
+     */
     public function moveTo(Coordinate $coord)
     {
         if (!$this->world->collision($coord)){
