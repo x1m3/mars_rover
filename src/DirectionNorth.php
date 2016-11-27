@@ -24,4 +24,9 @@ class DirectionNorth implements Idirection
     {
         return new DirectionEast();
     }
+
+    public function name()
+    {
+        return DirectionEnums::NORTH;
+    }
 }

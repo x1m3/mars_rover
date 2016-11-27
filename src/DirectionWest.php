@@ -4,7 +4,7 @@ namespace Marsrover;
 
 
 /**
- * Class DirectionNorth
+ * Class DirectionWest
  * @package Marsrover
  */
 class DirectionWest implements Idirection
@@ -23,5 +23,10 @@ class DirectionWest implements Idirection
     public function turnRight()
     {
         return new DirectionNorth();
+    }
+
+    public function name()
+    {
+        return DirectionEnums::WEST;
     }
 }
