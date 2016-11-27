@@ -110,5 +110,21 @@ class RoverTest extends TestCase
         $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
     }
 
+    /**
+     * @expectedException Marsrover\CannotMoveException
+     */
+    public function testRoversMovesToObstacle()
+    {
+        $world= new World( new Coordinate(100,100));
+        $obstaclePosition =  new Coordinate(40,50);
+        $world->addObstacle($obstaclePosition);
+        $roverPosition = new Coordinate($obstaclePosition->coordX(), $obstaclePosition->coordX()-1);
 
+        $rover = new Rover(
+                $roverPosition,
+                new DirectionNorth(),
+                $world
+        );
+        $this->expectException($rover->moveTo($obstaclePosition));
+    }
 }

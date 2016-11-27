@@ -43,6 +43,11 @@ class Rover
         $this->world = $world;
     }
 
+    public function world()
+    {
+        return $this->world;
+    }
+
     public function turnLeft()
     {
         $this->direction = $this->direction->turnLeft();
@@ -51,6 +56,15 @@ class Rover
     public function turnRight()
     {
         $this->direction = $this->direction->turnRight();
+    }
+
+    public function moveTo(Coordinate $coord)
+    {
+        if (!$this->world->collision($coord)){
+            $this->position = $coord;
+        } else {
+            throw new CannotMoveException();
+        }
     }
 
     /**
@@ -68,6 +82,7 @@ class Rover
     {
         return $this->direction;
     }
+
 
 
 }
