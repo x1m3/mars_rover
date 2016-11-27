@@ -71,8 +71,55 @@ class ForwardCommandTest extends TestCase
         $this->assertEquals(50,$rover->Position()->coordY());
     }
 
+    public function testForwardCommandMovesOutOfBoundariesNorth() {
 
+        $world= new World( new Coordinate(100,100));
+        $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
+        $rover = new Rover($initial, new DirectionNorth(), $world);
 
+        $moveForward = new ForwardCommand($rover);
+        $moveForward->execute();
 
+        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
+        $this->assertEquals($world->maxCoord()->coordY(), $rover->Position()->coordY());
+    }
 
+    public function testForwardCommandMovesOutOfBoundariesSouth() {
+
+        $world= new World( new Coordinate(100,100));
+        $initial = new Coordinate($world->minCoord()->coordX(), $world->maxCoord()->coordY());
+        $rover = new Rover($initial, new DirectionSouth(), $world);
+
+        $moveForward = new ForwardCommand($rover);
+        $moveForward->execute();
+
+        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
+        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
+    }
+
+    public function testForwardCommandMovesOutOfBoundariesWest() {
+
+        $world= new World( new Coordinate(100,100));
+        $initial = new Coordinate($world->minCoord()->coordX(), $world->minCoord()->coordY());
+        $rover = new Rover($initial, new DirectionWest(), $world);
+
+        $moveForward = new ForwardCommand($rover);
+        $moveForward->execute();
+
+        $this->assertEquals($world->maxCoord()->coordX(), $rover->Position()->coordX());
+        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
+    }
+
+    public function testForwardCommandMovesOutOfBoundariesEast() {
+
+        $world= new World( new Coordinate(100,100));
+        $initial = new Coordinate($world->maxCoord()->coordX(), $world->minCoord()->coordY());
+        $rover = new Rover($initial, new DirectionEast(), $world);
+
+        $moveForward = new ForwardCommand($rover);
+        $moveForward->execute();
+
+        $this->assertEquals($world->minCoord()->coordX(), $rover->Position()->coordX());
+        $this->assertEquals($world->minCoord()->coordY(), $rover->Position()->coordY());
+    }
 }
