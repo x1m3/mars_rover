@@ -13,11 +13,35 @@ Se requiere implementar la kata denominada "Mars Rover" en PHP. Las reglas son s
 	(Si sale por arriba aparece por abajo, igual para los laterales)
 - Si la Mars Rover encuentra un obstáculo cuando va a realizar un movimiento, informará al usuario y no realizará el movimiento.
 
-Docker
+Instalación
+= 
+- Bajar código 
+- composer install
+
+Testear el código
+=
+php vendor/phpunit/phpunit/phpunit tests
+
+
+Acerca de
 =
 
-- Instalar docker y docker-compose
-- Ejecutar docker-compose up 
+He querido darle un enfoque bastante desacoplado, procurando  diferenciar las responsabilidades entre clases
+para que pueda extenderse con relativa facilidad. Existen soluciones más sencillas que cumplen 
+el enunciado.
+
+Aún así, hay algunos puntos de los que no me siento especialmente orgulloso.
+
+Por ejemplo, el comando MoveCommand contiene lógica acerca de la esfericidad del mundo que posiblemente tendría 
+que llevarse a World o a Coordinates. 
+
+También es posible que me haya complicado la vida creando una clase Coordinate para representar coordenadas, pero
+será de agradecer si algún día se pide cambiar el modelo a 3D. 
+
+Respecto a las direcciones, me he basado en el patrón estado, donde cada estado conoce a que estado cambia ante 
+un suceso. Quizás es excesivo, a fin de cuentas, sólo tenemos 4 posibles direcciones.
+
+
 
 
 
