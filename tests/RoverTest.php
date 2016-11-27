@@ -4,6 +4,8 @@ namespace Marsrover\test;
 
 use Marsrover\DirectionNorth;
 use Marsrover\DirectionSouth;
+use Marsrover\DirectionEast;
+use Marsrover\DirectionWest;
 use PHPUnit\Framework\TestCase;
 use Marsrover\Coordinate;
 use Marsrover\World;
@@ -63,6 +65,48 @@ class RoverTest extends TestCase
             new DirectionNorth(),
             new World( new Coordinate(100,100))
         );
+        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+    }
+
+    public function testRoverTurnsLeft()
+    {
+        $rover = new Rover(
+            new Coordinate(40,50),
+            new DirectionNorth(),
+            new World( new Coordinate(100,100))
+        );
+
+        $rover->turnLeft();
+        $this->assertInstanceOf(DirectionWest::class, $rover->Direction());
+
+        $rover->turnLeft();
+        $this->assertInstanceOf(DirectionSouth::class, $rover->Direction());
+
+        $rover->turnLeft();
+        $this->assertInstanceOf(DirectionEast::class, $rover->Direction());
+
+        $rover->turnLeft();
+        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+    }
+
+    public function testRoverTurnsRight()
+    {
+        $rover = new Rover(
+            new Coordinate(40,50),
+            new DirectionNorth(),
+            new World( new Coordinate(100,100))
+        );
+
+        $rover->turnRight();
+        $this->assertInstanceOf(DirectionEast::class, $rover->Direction());
+
+        $rover->turnRight();
+        $this->assertInstanceOf(DirectionSouth::class, $rover->Direction());
+
+        $rover->turnRight();
+        $this->assertInstanceOf(DirectionWest::class, $rover->Direction());
+
+        $rover->turnRight();
         $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
     }
 

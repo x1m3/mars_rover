@@ -7,21 +7,21 @@ namespace Marsrover;
  * Class DirectionNorth
  * @package Marsrover
  */
-class DirectionNorth implements Idirection
+class DirectionWest implements Idirection
 {
-    /**
-     * @return DirectionNorth
-     */
-    public function turnLeft()
-    {
-        return new DirectionNorth();
-    }
-
     /**
      * @return DirectionSouth
      */
-    public function turnRight()
+    public function turnLeft()
     {
         return new DirectionSouth();
+    }
+
+    /**
+     * @return DirectionNorth
+     */
+    public function turnRight()
+    {
+        return new DirectionNorth();
     }
 }

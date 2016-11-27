@@ -43,6 +43,16 @@ class Rover
         $this->world = $world;
     }
 
+    public function turnLeft()
+    {
+        $this->direction = $this->direction->turnLeft();
+    }
+
+    public function turnRight()
+    {
+        $this->direction = $this->direction->turnRight();
+    }
+
     /**
      * @return Coordinate
      */
