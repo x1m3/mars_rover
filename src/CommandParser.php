@@ -2,8 +2,6 @@
 
 namespace Marsrover;
 
-use Marsrover\MovementsEnum;
-use Marsrover\Rover;
 use Marsrover\Commands\MoveCommand;
 use Marsrover\Commands\TurnLeftCommand;
 use Marsrover\Commands\TurnRightCommand;

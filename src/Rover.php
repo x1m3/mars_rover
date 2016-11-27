@@ -75,7 +75,7 @@ class Rover
     /**
      * @return Coordinate
      */
-    public function Position()
+    public function position()
     {
         return $this->position;
     }
@@ -83,7 +83,7 @@ class Rover
     /**
      * @return IDirection
      */
-    public function Direction()
+    public function direction()
     {
         return $this->direction;
     }

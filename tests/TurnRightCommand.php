@@ -24,15 +24,15 @@ class TurnRightCommandTest  extends TestCase
         $turnLeft = new TurnRightCommand($rover);
 
         $turnLeft->execute();
-        $this->assertInstanceOf(DirectionWest::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionWest::class, $rover->direction());
 
         $turnLeft->execute();
-        $this->assertInstanceOf(DirectionSouth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionSouth::class, $rover->direction());
 
         $turnLeft->execute();
-        $this->assertInstanceOf(DirectionEast::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionEast::class, $rover->direction());
 
         $turnLeft->execute();
-        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionNorth::class, $rover->direction());
     }
 }

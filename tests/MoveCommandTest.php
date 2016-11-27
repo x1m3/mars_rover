@@ -153,7 +153,7 @@ class MoveCommandTest extends TestCase
         $move= new MoveCommand($rover, $sense);
         $move->execute();
 
-        $this->assertEquals($expected->coordX(), $rover->Position()->coordX());
-        $this->assertEquals($expected->coordY(), $rover->Position()->coordY());
+        $this->assertEquals($expected->coordX(), $rover->position()->coordX());
+        $this->assertEquals($expected->coordY(), $rover->position()->coordY());
     }
 }

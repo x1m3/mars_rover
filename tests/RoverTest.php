@@ -54,8 +54,8 @@ class RoverTest extends TestCase
             new DirectionNorth(),
             new World( new Coordinate(100,100))
         );
-        $this->assertEquals(40, $rover->Position()->coordX());
-        $this->assertEquals(50, $rover->Position()->coordY());
+        $this->assertEquals(40, $rover->position()->coordX());
+        $this->assertEquals(50, $rover->position()->coordY());
     }
 
     public function testDirectionPositionIsOk()
@@ -65,7 +65,7 @@ class RoverTest extends TestCase
             new DirectionNorth(),
             new World( new Coordinate(100,100))
         );
-        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionNorth::class, $rover->direction());
     }
 
     public function testRoverTurnsLeft()
@@ -77,16 +77,16 @@ class RoverTest extends TestCase
         );
 
         $rover->turnLeft();
-        $this->assertInstanceOf(DirectionWest::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionWest::class, $rover->direction());
 
         $rover->turnLeft();
-        $this->assertInstanceOf(DirectionSouth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionSouth::class, $rover->direction());
 
         $rover->turnLeft();
-        $this->assertInstanceOf(DirectionEast::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionEast::class, $rover->direction());
 
         $rover->turnLeft();
-        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionNorth::class, $rover->direction());
     }
 
     public function testRoverTurnsRight()
@@ -98,16 +98,16 @@ class RoverTest extends TestCase
         );
 
         $rover->turnRight();
-        $this->assertInstanceOf(DirectionEast::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionEast::class, $rover->direction());
 
         $rover->turnRight();
-        $this->assertInstanceOf(DirectionSouth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionSouth::class, $rover->direction());
 
         $rover->turnRight();
-        $this->assertInstanceOf(DirectionWest::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionWest::class, $rover->direction());
 
         $rover->turnRight();
-        $this->assertInstanceOf(DirectionNorth::class, $rover->Direction());
+        $this->assertInstanceOf(DirectionNorth::class, $rover->direction());
     }
 
     /**

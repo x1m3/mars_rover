@@ -20,7 +20,7 @@ class MoveCommand
 
     public function execute()
     {
-        $position = $this->rover->Position();
+        $position = $this->rover->position();
         $world = $this->rover->world();
 
         if ($this->sense==MovementsEnum::FORWARD) {
@@ -29,7 +29,7 @@ class MoveCommand
             $step = -1;
         }
 
-        switch ($this->rover->Direction()->name()) {
+        switch ($this->rover->direction()->name()) {
             case DirectionEnums::NORTH:
                 $newPosition = new Coordinate($position->coordX(), $position->coordY()-$step);
                 if ($world->outOfLimits($newPosition)) {
